@@ -14,6 +14,8 @@
 // - The slave's secondary function of reviving fallen allies has been disabled.
 // Why? It's because being near a dead slave, he simply starts spinning or simply prioritizes the player and decides to let him disappear.
 // 
+// If you want to test how it goes, go to line 468, remove the return false; and remove the /* and */ that are in line 470 and 503.
+//
 // - CallForHelp is disabled because it is not available in AS (I think)
 //
 // Usage: In your map script include this
@@ -498,7 +500,7 @@ namespace MonsterSlaveCustom
 			if( m_hDead.GetEntity() !is null)
 				return true;
 			else
-				return false;*/
+				return false; */
 
 		}	
 
