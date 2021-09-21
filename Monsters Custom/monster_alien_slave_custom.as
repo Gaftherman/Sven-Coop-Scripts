@@ -177,7 +177,7 @@ namespace MonsterSlaveCustom
 		}
 
 		//=========================================================
-		// IdleSound
+		// 	Sound
 		//=========================================================
 		void IdleSound()
 		{
@@ -196,12 +196,10 @@ namespace MonsterSlaveCustom
 			{
 				switch( Math.RandomLong( 0, 1 ) )
 				{
-					case 0:
-					g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "aslave/slv_pain1.wav", 1, ATTN_NORM, 0, m_voicePitch );	
+					case 0: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "aslave/slv_pain1.wav", 1, ATTN_NORM, 0, m_voicePitch );	
 					break;
 
-					case 1:
-					g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "aslave/slv_pain2.wav", 1, ATTN_NORM, 0, m_voicePitch );	
+					case 1: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "aslave/slv_pain2.wav", 1, ATTN_NORM, 0, m_voicePitch );	
 					break;
 				}
 			}
@@ -214,12 +212,10 @@ namespace MonsterSlaveCustom
 		{
 			switch( Math.RandomLong( 0, 1 ) )
 			{
-				case 0:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "aslave/slv_die1.wav", 1, ATTN_NORM, 0, m_voicePitch );	
+				case 0: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "aslave/slv_die1.wav", 1, ATTN_NORM, 0, m_voicePitch );	
 				break;
 
-				case 1:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "aslave/slv_die2.wav", 1, ATTN_NORM, 0, m_voicePitch );	
+				case 1: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "aslave/slv_die2.wav", 1, ATTN_NORM, 0, m_voicePitch );	
 				break;
 			}
 		}
@@ -231,16 +227,13 @@ namespace MonsterSlaveCustom
 		{
 			switch( Math.RandomLong( 0, 2 ) )
 			{
-				case 0:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "zombie/claw_strike1.wav", 1, ATTN_NORM, 0, m_voicePitch );	
+				case 0: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "zombie/claw_strike1.wav", 1, ATTN_NORM, 0, m_voicePitch );
 				break;
 
-				case 1:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "zombie/claw_strike2.wav", 1, ATTN_NORM, 0, m_voicePitch );	
+				case 1: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "zombie/claw_strike2.wav", 1, ATTN_NORM, 0, m_voicePitch );
 				break;
 
-				case 2:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "zombie/claw_strike3.wav", 1, ATTN_NORM, 0, m_voicePitch );	
+				case 2: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "zombie/claw_strike3.wav", 1, ATTN_NORM, 0, m_voicePitch );
 				break;
 			}
 		}
@@ -252,12 +245,10 @@ namespace MonsterSlaveCustom
 		{
 			switch( Math.RandomLong( 0, 1 ) )
 			{
-				case 0:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "zombie/claw_miss1.wav", 1, ATTN_NORM, 0, m_voicePitch );	
+				case 0: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "zombie/claw_miss1.wav", 1, ATTN_NORM, 0, m_voicePitch );
 				break;
 
-				case 1:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "zombie/claw_miss2.wav", 1, ATTN_NORM, 0, m_voicePitch );	
+				case 1: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "zombie/claw_miss2.wav", 1, ATTN_NORM, 0, m_voicePitch );
 				break;
 			}
 		}
@@ -276,7 +267,6 @@ namespace MonsterSlaveCustom
 
 		void Killed( entvars_t@ pevAttacker, int iGib )
 		{
-			//g_Game.AlertMessage( at_console, "Entity was killed\n" );
 			ClearBeams();
 			BaseClass.Killed( pevAttacker, iGib );
 		}

@@ -132,12 +132,10 @@ namespace MonsterBullCustom
 
 			switch( Math.RandomLong( 0, 1 ) )
 			{
-				case 0:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "bullchicken/bc_spithit1.wav", 1, ATTN_NORM, 0, iPitch );	
+				case 0: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "bullchicken/bc_spithit1.wav", 1, ATTN_NORM, 0, iPitch );	
 				break;
 
-				case 1:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "bullchicken/bc_spithit2.wav", 1, ATTN_NORM, 0, iPitch );	
+				case 1: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "bullchicken/bc_spithit2.wav", 1, ATTN_NORM, 0, iPitch );
 				break;
 			}
 
@@ -398,24 +396,19 @@ namespace MonsterBullCustom
 		{
 			switch( Math.RandomLong( 0, 4 ) )
 			{
-				case 0:	
-				g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_idle1.wav", 1, 1.5 );	
+				case 0: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_idle1.wav", 1, 1.5 );
 				break;
 
-				case 1:	
-				g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_idle2.wav", 1, 1.5 );	
+				case 1: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_idle2.wav", 1, 1.5 );	
 				break;
 
-				case 2:	
-				g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_idle3.wav", 1, 1.5 );	
+				case 2: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_idle3.wav", 1, 1.5 );
 				break;
 
-				case 3:	
-				g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_idle4.wav", 1, 1.5 );	
+				case 3: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_idle4.wav", 1, 1.5 );
 				break;
 
-				case 4:	
-				g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_idle5.wav", 1, 1.5 );	
+				case 4: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_idle5.wav", 1, 1.5 );	
 				break;
 			}
 		}
@@ -429,20 +422,16 @@ namespace MonsterBullCustom
 
 			switch( Math.RandomLong( 0, 3 ) )
 			{
-				case 0:	
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_pain1.wav", 1, ATTN_NORM, 0, iPitch );	
+				case 0: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_pain1.wav", 1, ATTN_NORM, 0, iPitch );	
 				break;
 
-				case 1:	
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_pain2.wav", 1, ATTN_NORM, 0, iPitch );	
+				case 1:	g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_pain2.wav", 1, ATTN_NORM, 0, iPitch );
 				break;
 
-				case 2:	
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_pain3.wav", 1, ATTN_NORM, 0, iPitch );	
+				case 2:	g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_pain3.wav", 1, ATTN_NORM, 0, iPitch );
 				break;
 
-				case 3:	
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_pain4.wav", 1, ATTN_NORM, 0, iPitch );	
+				case 3:	g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_pain4.wav", 1, ATTN_NORM, 0, iPitch );
 				break;
 			}
 		}
@@ -456,12 +445,10 @@ namespace MonsterBullCustom
 
 			switch( Math.RandomLong( 0, 1 ) )
 			{
-				case 0:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_idle1.wav", 1, ATTN_NORM, 0, iPitch );	
+				case 0: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_idle1.wav", 1, ATTN_NORM, 0, iPitch );				
 				break;
 
-				case 1:
-				g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_idle2.wav", 1, ATTN_NORM, 0, iPitch );	
+				case 1:	g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_VOICE, "bullchicken/bc_idle2.wav", 1, ATTN_NORM, 0, iPitch );	
 				break;
 			}
 		}
@@ -605,12 +592,10 @@ namespace MonsterBullCustom
 						// croonchy bite sound
 						switch(  Math.RandomLong( 0, 1 ) )
 						{
-							case 0:
-							g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "bullchicken/bc_bite2.wav", 1, ATTN_NORM, 0, Math.RandomLong( 90, 110 ));	
+							case 0: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "bullchicken/bc_bite2.wav", 1, ATTN_NORM, 0, Math.RandomLong( 90, 110 ));
 							break;
 
-							case 1:
-							g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "bullchicken/bc_bite3.wav", 1, ATTN_NORM, 0, Math.RandomLong( 90, 110 ));	
+							case 1: g_SoundSystem.EmitSoundDyn( self.edict(), CHAN_WEAPON, "bullchicken/bc_bite3.wav", 1, ATTN_NORM, 0, Math.RandomLong( 90, 110 ));	
 							break;
 						}
 							
@@ -710,16 +695,13 @@ namespace MonsterBullCustom
 		{
 			switch( Math.RandomLong(0,2) )
 			{
-				case 0:	
-				g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_die1.wav", 1, ATTN_NORM );	
+				case 0: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_die1.wav", 1, ATTN_NORM );	
 				break;
 
-				case 1:
-				g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_die2.wav", 1, ATTN_NORM );	
+				case 1: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_die2.wav", 1, ATTN_NORM );	
 				break;
 
-				case 2:
-				g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_die3.wav", 1, ATTN_NORM );	
+				case 2: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_die3.wav", 1, ATTN_NORM );	
 				break;
 			}
 		}
@@ -731,12 +713,10 @@ namespace MonsterBullCustom
 		{
 			switch( Math.RandomLong(0,1) )
 			{
-				case 0:
-				g_SoundSystem.EmitSound( self.edict(), CHAN_WEAPON, "bullchicken/bc_attack2.wav", 1, ATTN_NORM );	
+				case 0: g_SoundSystem.EmitSound( self.edict(), CHAN_WEAPON, "bullchicken/bc_attack2.wav", 1, ATTN_NORM );	
 				break;
 
-				case 1:
-				g_SoundSystem.EmitSound( self.edict(), CHAN_WEAPON, "bullchicken/bc_attack3.wav", 1, ATTN_NORM );	
+				case 1: g_SoundSystem.EmitSound( self.edict(), CHAN_WEAPON, "bullchicken/bc_attack3.wav", 1, ATTN_NORM );	
 				break;
 			}
 		}
@@ -909,16 +889,13 @@ namespace MonsterBullCustom
 				{
 					switch( Math.RandomLong ( 0, 2 ) )
 					{
-						case 0:	
-						g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_attackgrowl.wav", 1, ATTN_NORM );		
+						case 0: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_attackgrowl.wav", 1, ATTN_NORM );
 						break;
 
-						case 1:	
-						g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_attackgrowl2.wav", 1, ATTN_NORM );	
+						case 1: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_attackgrowl2.wav", 1, ATTN_NORM );	
 						break;
 
-						case 2:	
-						g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_attackgrowl3.wav", 1, ATTN_NORM );	
+						case 2: g_SoundSystem.EmitSound( self.edict(), CHAN_VOICE, "bullchicken/bc_attackgrowl3.wav", 1, ATTN_NORM );
 						break;
 					}
 
@@ -1106,69 +1083,69 @@ namespace MonsterBullCustom
 
 	void InitSchedules()
 	{
-		slSquidRangeAttack1.AddTask( ScriptTask(TASK_STOP_MOVING, float( 0 ) ) );
-		slSquidRangeAttack1.AddTask( ScriptTask(TASK_FACE_IDEAL, float( 0 ) ) );
-		slSquidRangeAttack1.AddTask( ScriptTask(TASK_RANGE_ATTACK1, float( 0 ) ) );
+		slSquidRangeAttack1.AddTask( ScriptTask(TASK_STOP_MOVING) );
+		slSquidRangeAttack1.AddTask( ScriptTask(TASK_FACE_IDEAL) );
+		slSquidRangeAttack1.AddTask( ScriptTask(TASK_RANGE_ATTACK1) );
 		slSquidRangeAttack1.AddTask( ScriptTask(TASK_SET_ACTIVITY, float(ACT_IDLE)) );
 
 		slSquidChaseEnemy.AddTask( ScriptTask(TASK_SET_FAIL_SCHEDULE, float(SCHED_RANGE_ATTACK1)) );// !!!OEM - this will stop nasty squid oscillation.
-		slSquidChaseEnemy.AddTask( ScriptTask(TASK_GET_PATH_TO_ENEMY, float( 0 ) ) );
-		slSquidChaseEnemy.AddTask( ScriptTask(TASK_RUN_PATH, float( 0 ) ) );
-		slSquidChaseEnemy.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT, float( 0 ) ) );
+		slSquidChaseEnemy.AddTask( ScriptTask(TASK_GET_PATH_TO_ENEMY) );
+		slSquidChaseEnemy.AddTask( ScriptTask(TASK_RUN_PATH) );
+		slSquidChaseEnemy.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT) );
 
-		slSquidHurtHop.AddTask( ScriptTask(TASK_STOP_MOVING, float( 0 ) ) );
-		slSquidHurtHop.AddTask( ScriptTask(TASK_SOUND_WAKE, float( 0 ) ) );
-		//slSquidHurtHop.AddTask( ScriptTask(TASK_SQUID_HOPTURN, float( 0 ) ) );
-		slSquidHurtHop.AddTask( ScriptTask(TASK_FACE_ENEMY, float( 0 ) ) );// in case squid didn't turn all the way in the air.
+		slSquidHurtHop.AddTask( ScriptTask(TASK_STOP_MOVING) );
+		slSquidHurtHop.AddTask( ScriptTask(TASK_SOUND_WAKE) );
+		//slSquidHurtHop.AddTask( ScriptTask(TASK_SQUID_HOPTURN) );
+		slSquidHurtHop.AddTask( ScriptTask(TASK_FACE_ENEMY) );// in case squid didn't turn all the way in the air.
 
-		slSquidSeeCrab.AddTask( ScriptTask(TASK_STOP_MOVING, float( 0 ) ) );
-		slSquidSeeCrab.AddTask( ScriptTask(TASK_SOUND_WAKE, float( 0 ) ) );
+		slSquidSeeCrab.AddTask( ScriptTask(TASK_STOP_MOVING) );
+		slSquidSeeCrab.AddTask( ScriptTask(TASK_SOUND_WAKE) );
 		slSquidSeeCrab.AddTask( ScriptTask(TASK_PLAY_SEQUENCE, float(ACT_EXCITED)) );
-		slSquidSeeCrab.AddTask( ScriptTask(TASK_FACE_ENEMY, float( 0 ) ) );
+		slSquidSeeCrab.AddTask( ScriptTask(TASK_FACE_ENEMY) );
 
-		slSquidEat.AddTask( ScriptTask(TASK_STOP_MOVING, float( 0 ) ) );
+		slSquidEat.AddTask( ScriptTask(TASK_STOP_MOVING) );
 		slSquidEat.AddTask( ScriptTask(TASK_EAT, float( 10 ) ) );// this is in case the squid can't get to the food
-		slSquidEat.AddTask( ScriptTask(TASK_STORE_LASTPOSITION, float( 0 ) ) );
-		slSquidEat.AddTask( ScriptTask(TASK_GET_PATH_TO_BESTSCENT, float( 0 ) ) );
-		slSquidEat.AddTask( ScriptTask(TASK_WALK_PATH, float( 0 ) ) );
+		slSquidEat.AddTask( ScriptTask(TASK_STORE_LASTPOSITION) );
+		slSquidEat.AddTask( ScriptTask(TASK_GET_PATH_TO_BESTSCENT) );
+		slSquidEat.AddTask( ScriptTask(TASK_WALK_PATH) );
 		slSquidEat.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT) );
 		slSquidEat.AddTask( ScriptTask(TASK_PLAY_SEQUENCE, float(ACT_EAT)) );
 		slSquidEat.AddTask( ScriptTask(TASK_PLAY_SEQUENCE, float(ACT_EAT)) );
 		slSquidEat.AddTask( ScriptTask(TASK_PLAY_SEQUENCE, float(ACT_EAT)) );
 		slSquidEat.AddTask( ScriptTask(TASK_EAT, float( 50 ) ) );
-		slSquidEat.AddTask( ScriptTask(TASK_GET_PATH_TO_LASTPOSITION, float( 0 ) ) );
-		slSquidEat.AddTask( ScriptTask(TASK_WALK_PATH, float( 0 ) ) );
-		slSquidEat.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT, float( 0 ) ) );
-		slSquidEat.AddTask( ScriptTask(TASK_CLEAR_LASTPOSITION, float( 0 ) ) );
+		slSquidEat.AddTask( ScriptTask(TASK_GET_PATH_TO_LASTPOSITION) );
+		slSquidEat.AddTask( ScriptTask(TASK_WALK_PATH) );
+		slSquidEat.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT) );
+		slSquidEat.AddTask( ScriptTask(TASK_CLEAR_LASTPOSITION) );
 
-		slSquidSniffAndEat.AddTask( ScriptTask(TASK_STOP_MOVING, float( 0 ) ) );
+		slSquidSniffAndEat.AddTask( ScriptTask(TASK_STOP_MOVING) );
 		slSquidSniffAndEat.AddTask( ScriptTask(TASK_EAT, float( 10 ) ) );// this is in case the squid can't get to the food
 		slSquidSniffAndEat.AddTask( ScriptTask(TASK_PLAY_SEQUENCE, float(ACT_DETECT_SCENT)) );
-		slSquidSniffAndEat.AddTask( ScriptTask(TASK_STORE_LASTPOSITION, float( 0 ) ) );
-		slSquidSniffAndEat.AddTask( ScriptTask(TASK_GET_PATH_TO_BESTSCENT, float( 0 ) ) );
-		slSquidSniffAndEat.AddTask( ScriptTask(TASK_WALK_PATH, float( 0 ) ) );
-		slSquidSniffAndEat.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT, float( 0 ) ) );
+		slSquidSniffAndEat.AddTask( ScriptTask(TASK_STORE_LASTPOSITION) );
+		slSquidSniffAndEat.AddTask( ScriptTask(TASK_GET_PATH_TO_BESTSCENT) );
+		slSquidSniffAndEat.AddTask( ScriptTask(TASK_WALK_PATH) );
+		slSquidSniffAndEat.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT) );
 		slSquidSniffAndEat.AddTask( ScriptTask(TASK_PLAY_SEQUENCE, float(ACT_EAT)) );
 		slSquidSniffAndEat.AddTask( ScriptTask(TASK_PLAY_SEQUENCE, float(ACT_EAT)) );
 		slSquidSniffAndEat.AddTask( ScriptTask(TASK_PLAY_SEQUENCE, float(ACT_EAT)) );
 		slSquidSniffAndEat.AddTask( ScriptTask(TASK_EAT, float( 50 ) ) );
-		slSquidSniffAndEat.AddTask( ScriptTask(TASK_GET_PATH_TO_LASTPOSITION, float( 0 ) ) );
-		slSquidSniffAndEat.AddTask( ScriptTask(TASK_WALK_PATH, float( 0 ) ) );
-		slSquidSniffAndEat.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT, float( 0 ) ) );
-		slSquidSniffAndEat.AddTask( ScriptTask(TASK_CLEAR_LASTPOSITION, float( 0 ) ) );
+		slSquidSniffAndEat.AddTask( ScriptTask(TASK_GET_PATH_TO_LASTPOSITION) );
+		slSquidSniffAndEat.AddTask( ScriptTask(TASK_WALK_PATH) );
+		slSquidSniffAndEat.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT) );
+		slSquidSniffAndEat.AddTask( ScriptTask(TASK_CLEAR_LASTPOSITION) );
 
-		slSquidWallow.AddTask( ScriptTask(TASK_STOP_MOVING, float( 0 ) ) );
+		slSquidWallow.AddTask( ScriptTask(TASK_STOP_MOVING) );
 		slSquidWallow.AddTask( ScriptTask(TASK_EAT, float( 10 ) ) );// this is in case the squid can't get to the stinkiness
-		slSquidWallow.AddTask( ScriptTask(TASK_STORE_LASTPOSITION, float( 0 ) ) );
-		slSquidWallow.AddTask( ScriptTask(TASK_GET_PATH_TO_BESTSCENT, float( 0 ) ) );
-		slSquidWallow.AddTask( ScriptTask(TASK_WALK_PATH, float( 0 ) ) );
-		slSquidWallow.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT, float( 0 ) ) );
+		slSquidWallow.AddTask( ScriptTask(TASK_STORE_LASTPOSITION) );
+		slSquidWallow.AddTask( ScriptTask(TASK_GET_PATH_TO_BESTSCENT) );
+		slSquidWallow.AddTask( ScriptTask(TASK_WALK_PATH) );
+		slSquidWallow.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT) );
 		slSquidWallow.AddTask( ScriptTask(TASK_PLAY_SEQUENCE, float(ACT_INSPECT_FLOOR)) );
 		slSquidWallow.AddTask( ScriptTask(TASK_EAT, float( 50 ) ) );// keeps squid from eating or sniffing anything else for a while.
-		slSquidWallow.AddTask( ScriptTask(TASK_GET_PATH_TO_LASTPOSITION, float( 0 ) ) );
-		slSquidWallow.AddTask( ScriptTask(TASK_WALK_PATH, float( 0 ) ) );
-		slSquidWallow.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT, float( 0 ) ) );
-		slSquidWallow.AddTask( ScriptTask(TASK_CLEAR_LASTPOSITION, float( 0 ) ) );
+		slSquidWallow.AddTask( ScriptTask(TASK_GET_PATH_TO_LASTPOSITION) );
+		slSquidWallow.AddTask( ScriptTask(TASK_WALK_PATH) );
+		slSquidWallow.AddTask( ScriptTask(TASK_WAIT_FOR_MOVEMENT) );
+		slSquidWallow.AddTask( ScriptTask(TASK_CLEAR_LASTPOSITION) );
 
 		array<ScriptSchedule@> scheds =
 		{
