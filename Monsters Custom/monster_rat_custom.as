@@ -1,6 +1,6 @@
 //
 // Author: Gaftherman
-// Taken and ported from: https://github.com/SamVanheer/halflife-updated/blob/master/dlls/bullsquid.cpp
+// Taken and ported from: https://github.com/SamVanheer/halflife-updated/blob/master/dlls/rat.cpp
 //
 // ===================================
 //
@@ -17,6 +17,7 @@
 //
 // If you want to modify it or use it as a base for some monster, you are free to use it always giving credits.
 //
+
 namespace MonsterRatCustom
 {
 	//=========================================================
