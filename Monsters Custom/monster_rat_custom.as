@@ -15,8 +15,6 @@
 //
 // ===================================
 //
-// If you want to modify it or use it as a base for some monster, you are free to use it always giving credits.
-//
 
 namespace MonsterRatCustom
 {
