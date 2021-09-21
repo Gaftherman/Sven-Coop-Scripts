@@ -2,7 +2,7 @@
 // Author: Gaftherman
 // Taken and ported from: https://github.com/SamVanheer/halflife-updated/blob/master/dlls/headcrab.cpp
 // 
-// It was used as a base https://github.com/DrAbcrealone/AngelScripts/blob/master/monster/CExpCrab.as
+// It was used as a basis: https://github.com/DrAbcrealone/AngelScripts/blob/master/monster/CExpCrab.as
 //
 // Credits also go to DrAbcrealone
 //
