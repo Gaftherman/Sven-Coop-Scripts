@@ -1,7 +1,7 @@
 # Sven-Coop-Scripts
 What is this? This repository will contain scripts for public use
 
-**click on the preview images to open a showcase video
+**click on the preview images to open a showcase video**
 
 weapon_tar21 AMX port to Angelscript
 [![weapon_tar21](https://img.youtube.com/vi/MPmh9jf0qtI/hqdefault.jpg)](https://youtu.be/MPmh9jf0qtI)
