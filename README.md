@@ -14,4 +14,5 @@ halfnuked pack C++ port to Angelscript
 Author | files | script ported | showcase
 ------ | ----- | ------------- | --------
 [KORD_12.7, Koshak](http://aghl.ru/forum/) | [weapon_tar21.rar](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Weapon%20Mod/weapon_tar21.rar) | [weapon_tar21.as](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Weapon%20Mod/weapon_tar21.as) | [KEZÆIV](https://youtu.be/MPmh9jf0qtI)
+[Maxxiii](https://github.com/HLSources/Half-Nuked) | [half-life nuked files](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Nuked/hl_nuked.rar) | [hl_nuked.as](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Nuked/hl_nuked.as) | [KEZÆIV](https://youtu.be/hdSyG3rtY7w)
 
