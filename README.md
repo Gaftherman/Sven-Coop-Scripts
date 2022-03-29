@@ -11,13 +11,6 @@ halfnuked pack C++ port to Angelscript
 
 [![halfnuked](https://img.youtube.com/vi/hdSyG3rtY7w/hqdefault.jpg)](https://youtu.be/hdSyG3rtY7w)
 
-## Information:
-Author | files | script ported | showcase
------- | ----- | ------------- | --------
-[KORD_12.7, Koshak](http://aghl.ru/forum/) | [weapon_tar21.rar](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Weapon%20Mod/weapon_tar21.rar) | [weapon_tar21.as](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Weapon%20Mod/weapon_tar21.as) | [KEZÆIV](https://youtu.be/MPmh9jf0qtI)
-[Maxxiii](https://github.com/HLSources/Half-Nuked) | [half-life nuked files](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Nuked/hl_nuked.rar) | [hl_nuked.as](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Nuked/hl_nuked.as) | [KEZÆIV](https://youtu.be/hdSyG3rtY7w)
-
-
 ## My Custom DynamicDifficulty 
 
 What's new in this DD?
@@ -54,5 +47,10 @@ The things I changed were:
 - I added a way to barnacle eat more fast
   - In the part called `BarnacleSpeed` you can add how many units per second the barnacle is gonna eat.
 
-**Sorry for the random spanish in some parts :S**
+**Sorry for the random spanish in some parts of the script :S**
 
+## Information:
+Author | files | script ported | showcase
+------ | ----- | ------------- | --------
+[KORD_12.7, Koshak](http://aghl.ru/forum/) | [weapon_tar21.rar](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Weapon%20Mod/weapon_tar21.rar) | [weapon_tar21.as](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Weapon%20Mod/weapon_tar21.as) | [KEZÆIV](https://youtu.be/MPmh9jf0qtI)
+[Maxxiii](https://github.com/HLSources/Half-Nuked) | [half-life nuked files](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Nuked/hl_nuked.rar) | [hl_nuked.as](https://github.com/Gaftherman/Sven-Coop-Scripts/blob/main/Half-Life%20-%20Nuked/hl_nuked.as) | [KEZÆIV](https://youtu.be/hdSyG3rtY7w)
