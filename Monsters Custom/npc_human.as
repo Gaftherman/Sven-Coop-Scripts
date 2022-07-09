@@ -184,7 +184,7 @@ namespace MonsterHuman
 
 			if( self.pev.movetype != MOVETYPE_FLY && self.m_MonsterState != MONSTERSTATE_PRONE )
 			{
-				self.m_flAutomaticAttackTime = g_Engine.time + Math.RandomFloat(0.2, 0.5);
+				self.m_flAutomaticAttackTime = g_Engine.time + 0.75;
 			}
 
 			// UNDONE: Reload?
@@ -218,7 +218,7 @@ namespace MonsterHuman
 
 			if( self.pev.movetype != MOVETYPE_FLY && self.m_MonsterState != MONSTERSTATE_PRONE )
 			{
-				self.m_flAutomaticAttackTime = g_Engine.time + Math.RandomFloat(0.2, 0.5);
+				self.m_flAutomaticAttackTime = g_Engine.time + Math.RandomFloat(0.22, 0.5);
 			}
 
 			// UNDONE: Reload?
@@ -237,7 +237,7 @@ namespace MonsterHuman
 
 			Vector vecShellVelocity = g_Engine.v_right * Math.RandomFloat(40,90) + g_Engine.v_up * Math.RandomFloat(75,200) + g_Engine.v_forward * Math.RandomFloat(-40, 40);
 			g_EntityFuncs.EjectBrass( vecShootOrigin - vecShootDir * 24, vecShellVelocity, self.pev.angles.y, m_iBrassShell, TE_BOUNCE_SHELL); 
-			self.FireBullets(8, vecShootOrigin, vecShootDir, VECTOR_CONE_15DEGREES, 2048, BULLET_PLAYER_BUCKSHOT );
+			self.FireBullets(4, vecShootOrigin, vecShootDir, VECTOR_CONE_15DEGREES, 2048, BULLET_PLAYER_BUCKSHOT );
 
 			int pitchShift = Math.RandomLong( 0, 20 );
 			if( pitchShift > 10 )// Only shift about half the time
@@ -252,7 +252,7 @@ namespace MonsterHuman
 
 			if( self.pev.movetype != MOVETYPE_FLY && self.m_MonsterState != MONSTERSTATE_PRONE )
 			{
-				self.m_flAutomaticAttackTime = g_Engine.time + Math.RandomFloat(0.2, 0.5);
+				self.m_flAutomaticAttackTime = g_Engine.time + 0.85;
 			}
 	
 			// UNDONE: Reload?
@@ -271,7 +271,7 @@ namespace MonsterHuman
 
 			Vector vecShellVelocity = g_Engine.v_right * Math.RandomFloat(40,90) + g_Engine.v_up * Math.RandomFloat(75,200) + g_Engine.v_forward * Math.RandomFloat(-40, 40);
 			g_EntityFuncs.EjectBrass( vecShootOrigin - vecShootDir * 24, vecShellVelocity, self.pev.angles.y, m_iBrassShell, TE_BOUNCE_SHELL); 
-			self.FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_10DEGREES, 2048, BULLET_MONSTER_MP5 ); // shoot +-5 degrees
+			self.FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_6DEGREES, 2048, BULLET_MONSTER_MP5 ); // shoot +-5 degrees
 
 			int pitchShift = Math.RandomLong( 0, 20 );
 			if( pitchShift > 10 )// Only shift about half the time
@@ -291,7 +291,7 @@ namespace MonsterHuman
 
 			if( self.pev.movetype != MOVETYPE_FLY && self.m_MonsterState != MONSTERSTATE_PRONE )
 			{
-				self.m_flAutomaticAttackTime = g_Engine.time + Math.RandomFloat(0.2, 0.5);
+				self.m_flAutomaticAttackTime = g_Engine.time + Math.RandomFloat(0.05, 0.1);
 			}
 
 			// UNDONE: Reload?
@@ -340,7 +340,7 @@ namespace MonsterHuman
 
 			if( self.pev.movetype != MOVETYPE_FLY && self.m_MonsterState != MONSTERSTATE_PRONE )
 			{
-				self.m_flAutomaticAttackTime = g_Engine.time + Math.RandomFloat(0.2, 0.5);
+				self.m_flAutomaticAttackTime = g_Engine.time + Math.RandomFloat(0.067, 0.80);
 			}
 
 			// UNDONE: Reload?
@@ -365,33 +365,15 @@ namespace MonsterHuman
 			{
 				case BARNEY_AE_SHOOT:
 				{
-					if( m_iWeapon == 0) // Glock - Random Weapon
+					switch(m_iWeapon)
 					{
-						FirePistol(); 
-					}
-					else if( m_iWeapon == 2) // Glock
-					{
-						FirePistol();
-					}
-					else if( m_iWeapon == 3) // Python
-					{
-						FirePython();
-					}
-					else if( m_iWeapon == 4) // Desert Eagle
-					{
-						FireEagle(); 
-					}
-					else if( m_iWeapon == 5) // Shotgun
-					{
-						FireShotgun();
-					}
-					else if( m_iWeapon == 6) // MP5
-					{
-						FireMP5();
-					}
-					else if( m_iWeapon == 7) // Machine Gun
-					{
-						FireSaw();
+						case 0: FirePistol(); break;
+						case 2: FirePistol(); break;
+						case 3: FirePython(); break;
+						case 4: FireEagle(); break;
+						case 5: FireShotgun(); break;
+						case 6: FireMP5(); break;
+						case 7: FireSaw(); break;
 					}
 
 					break;
@@ -440,7 +422,17 @@ namespace MonsterHuman
 			self.m_fCanFearCreatures 	= true; // Can attempt to run away from things like zombies
 			m_flNextFearScream	= g_Engine.time;
 
-			m_cClipSize 			= 17; //17 Shots
+			switch(m_iWeapon)
+			{
+				case 0: m_cClipSize = 17; break;
+				case 2: m_cClipSize = 17; break;
+				case 3: m_cClipSize = 6; break;
+				case 4: m_cClipSize = 7; break;
+				case 5: m_cClipSize = 8; break;
+				case 6: m_cClipSize = 50; break;
+				case 7: m_cClipSize = 200; break;
+			}
+
 			self.m_cAmmoLoaded		= m_cClipSize; 
 
 			self.m_FormattedName	= "Human";
