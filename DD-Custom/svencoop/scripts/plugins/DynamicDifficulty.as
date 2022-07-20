@@ -381,7 +381,7 @@ final class Diffy
         MessageTime = 0.0;
         LastPlayerNum = Math.clamp( 0, 32, PlayerNumNow );
 
-        double DifficulSelected = DifficulSelected = (DiffPerPeople[LastPlayerNum]);;
+        double DifficulSelected = (DiffPerPeople[LastPlayerNum]);;
 
         // After changing the difficulty, it will remain until after you reset the map twice.(WIP)
         /*if( g_timer.Fails % 2 == 1 )
@@ -642,6 +642,12 @@ final class Diffy
             if( pPlayer.pev.max_health < 1.0 ) pPlayer.pev.max_health = 1.0;
             if( pPlayer.pev.armortype < 1.0 ) pPlayer.pev.armortype = 1.0;	
 
+            // if(pPlayer.pev.health > 0.0)
+            //     pPlayer.pev.health *= InitialMaxHealth/h2 + 1.0;
+            
+            // if(pPlayer.pev.armorvalue > 0.0)
+            //     pPlayer.pev.armorvalue *= InitialMaxArmor/a2 + 1.0;
+
             pPlayer.pev.max_health = InitialMaxHealth;
             pPlayer.pev.armortype = InitialMaxArmor;
 
@@ -688,7 +694,7 @@ final class Diffy
                                 pPlayer.pev.health += InitialMaxHealthCharge * BetweenTime;
                             
                             if( InitialMaxArmorCharge > 0.0 )
-                                  pPlayer.pev.armorvalue += InitialMaxArmorCharge * BetweenTime;
+                                pPlayer.pev.armorvalue += InitialMaxArmorCharge * BetweenTime;
                         }
 
                         if( pPlayer.pev.health > pPlayer.pev.max_health )
@@ -715,14 +721,10 @@ final class Diffy
         {
             CBaseEntity@ ent = g_EntityFuncs.Instance( i );
             
-            if( ent !is null ) 
-            {
-                if( ent.GetCustomKeyvalues().HasKeyvalue( "$i_dyndiff_skip" ) )
-                    continue;
+            if( ent is null || ent.GetCustomKeyvalues().HasKeyvalue( "$i_dyndiff_skip" ) || ent.pev.classname != "point_checkpoint" )
+                continue;
 
-                if( ent.pev.classname == "point_checkpoint" ) 
-                    g_EntityFuncs.Remove( ent );		
-            }
+            g_EntityFuncs.Remove( ent );		
         }
     }
 
@@ -755,6 +757,8 @@ final class Diffy
                 DisableDiff = false;
             }
         }
+
+        pFile.Close();
     }
 
     string GetMessage()
@@ -1018,7 +1022,7 @@ final class VoteAlt
 
     VoteAlt()
     {
-        DelayTimer = 3;
+        DelayTimer = 30;
         DiffSelected = 0;
 
         Think();
