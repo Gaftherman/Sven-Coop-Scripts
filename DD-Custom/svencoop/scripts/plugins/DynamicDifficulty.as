@@ -1,4 +1,4 @@
-//Bloquea el uso del los votos a los jugadores que estan aca
+//To permanently block the use of vote of a specific player, put their SteamID here SteamID
 array<string> SteamIDArray = 
 {
 	"STEAM_0:0:000000000",
@@ -14,10 +14,8 @@ Timer@ g_timer;
 VoteAlt@ g_vote;
 BarnacleEatSpeed@ g_barnacle;
 
-//Un contador de spamming para los jugadores que hacen muchos votos (Se reinicia para todos los jugadores al hacer un retry/cambiar el mapa)
 dictionary g_Player_Spamming;
 
-//Comandos que se ejecutan en la consola
 CClientCommand g_DiffCommandAdmin("admin_diff", "Sets the Difficulty by a admin (0.0 - 100.0)", @DiffAdmin, ConCommandFlag::AdminOnly);
 CClientCommand g_DiffCommand("diff", "Vote to change the Difficulty (0.0 - 100.0)", @Diff );
 
@@ -26,15 +24,15 @@ void DiffAdmin(const CCommand@ pArguments)
 	CBasePlayer@ pPlayer = g_ConCommandSystem.GetCurrentPlayer();
 	string aStr = pArguments.Arg(1);
 
-	if(pArguments.ArgC() < 1 && aStr == "" && !g_diffy.VoidDisableDIff()) 
+	if( pArguments.ArgC() < 1 && aStr == "" && !g_diffy.VoidDisableDiff() ) 
         return;
 
 	double NewDiff = atod(aStr);
 	
 	g_diffy.SetNewDifficult(NewDiff/100.0);
 
-	g_PlayerFuncs.ClientPrintAll( HUD_PRINTNOTIFY, "Dificultad cambiada por un admin\n" );
-	g_Game.AlertMessage( at_logged, "Dificultad cambiada por un admin: "+pPlayer.pev.netname+"\n" );
+	g_PlayerFuncs.ClientPrintAll( HUD_PRINTNOTIFY, "[SERVER] Difficulty changed by an admin\n" );
+	g_Game.AlertMessage( at_logged, "[SERVER] Difficulty changed by an admin: "+pPlayer.pev.netname+"\n" );
 }
 
 void Diff(const CCommand@ pArguments)
@@ -42,15 +40,15 @@ void Diff(const CCommand@ pArguments)
 	CBasePlayer@ pPlayer = g_ConCommandSystem.GetCurrentPlayer();
 	string Message = pArguments.Arg(1);
 
-	if(pArguments.ArgC() < 1 && Message == "" && !g_diffy.VoidDisableDIff()) 
+	if( pArguments.ArgC() < 1 && Message == "" && !g_diffy.VoidDisableDiff() ) 
         return;
 
 	g_vote.Vote( pPlayer, Message );
 }
 
-void PluginInit() //No muevas esto a un MapInit/MapActivate u otro, que se jode todo el script - Gafsitoelbonito
+void PluginInit()
 {
-	g_Module.ScriptInfo.SetAuthor( "Cubo de matematicas | Gaf el hombre R" );
+	g_Module.ScriptInfo.SetAuthor( "Cubemath | Gaftherman" );
 	g_Module.ScriptInfo.SetContactInfo( "Idk" );
 
 	g_Hooks.RegisterHook( Hooks::Player::ClientPutInServer, @ClientPutInServer );
@@ -71,10 +69,8 @@ void PluginInit() //No muevas esto a un MapInit/MapActivate u otro, que se jode 
 	@g_vote = @vote;
 	@g_barnacle = @barnacle;
 
-    g_diffy.CountPeople();
-
-    g_diffy.MapActivate();
-	g_timer.MapActivate();
+	g_diffy.PluginInit(); 
+	g_timer.PluginInit();
 }
 
 void MapActivate()
@@ -89,7 +85,7 @@ void MapActivate()
 
 HookReturnCode ClientPutInServer( CBasePlayer@ pPlayer )
 {
-	if( !g_diffy.VoidDisableDIff() ) 
+	if( !g_diffy.VoidDisableDiff() ) 
 	{
 		pPlayer.pev.max_health = g_diffy.VoidInitialMaxHealth();
 		pPlayer.pev.armortype = g_diffy.VoidInitialMaxArmor();
@@ -109,7 +105,7 @@ HookReturnCode ClientDisconnect( CBasePlayer@ pPlayer )
 
 HookReturnCode PlayerKilled(CBasePlayer@ pPlayer, CBaseEntity@ pAttacker, int iGib)
 {
-	if(g_diffy.VoidNewDifficult() == 1.0 && !((pPlayer.pev.health < -40 && iGib != GIB_NEVER) || iGib == GIB_ALWAYS) && !g_diffy.VoidDisableDIff()) 
+	if( g_diffy.VoidNewDifficult() == 1.0 && !((pPlayer.pev.health < -40 && iGib != GIB_NEVER) || iGib == GIB_ALWAYS) && !g_diffy.VoidDisableDiff() ) 
 	{
 		pPlayer.GibMonster();
 		pPlayer.pev.deadflag = DEAD_DEAD;
@@ -121,7 +117,7 @@ HookReturnCode PlayerKilled(CBasePlayer@ pPlayer, CBaseEntity@ pAttacker, int iG
 
 HookReturnCode EntityCreated(CBaseEntity@ pEntity)
 {
-    if( pEntity.IsMonster() && !pEntity.IsNetClient()  )
+    if( pEntity.IsMonster() && !pEntity.IsNetClient() )
 		g_diffy.EntitiesInThisMap.insertLast( pEntity );
 
 	return HOOK_CONTINUE;
@@ -133,10 +129,8 @@ HookReturnCode ClientSay( SayParameters@ pParams )
 	const CCommand@ args = pParams.GetArguments();
 	string cmd = pParams.GetCommand();
 
-	if( !g_diffy.VoidDisableDIff() && (args[0] == "/vote" && args[1] == "diff" && args.ArgC() >= 3 || args[0] == "/votediff" && args.ArgC() >= 2) )
+	if( !g_diffy.VoidDisableDiff() && (args[0] == "/vote" && args[1] == "diff" && args.ArgC() >= 3 || args[0] == "/votediff" && args.ArgC() >= 2) )
 	{	
-		double NewDiff;
-
 		if( args[0] == "/vote" && args[1] == "diff" )
 			g_vote.Vote( pPlayer, args[2] );
 		else if( args[0] == "/votediff" )
@@ -146,9 +140,8 @@ HookReturnCode ClientSay( SayParameters@ pParams )
 	}
 
 	cmd.ToUppercase();
-	bool strTest = false;
 
-	strTest = (cmd.Find("DIFF") != String::INVALID_INDEX);
+	bool strTest = (cmd.Find("DIFF") != String::INVALID_INDEX);
 	strTest = strTest || (cmd.Find("STATUS") != String::INVALID_INDEX);
 	strTest = strTest || (cmd.Find("DIFFSTATUS") != String::INVALID_INDEX);
 	strTest = strTest || (cmd.Find("DIFSTATUS") != String::INVALID_INDEX);
@@ -170,9 +163,9 @@ final class Diffy
 	CScheduledFunction@ CountPeopleScheduler;
     CScheduledFunction@ Enable30SecScheduler;
 
-	/************************************/
-	/* Current Entities of the map	    */
-	/************************************/
+	/*******************************/
+	/* Current Entities of the map */
+	/*******************************/
     array<EHandle> EntitiesInThisMap;
 
 	/***************/
@@ -203,9 +196,9 @@ final class Diffy
     private double InitialMaxHealth = 100.0f;
 	double VoidInitialMaxHealth() { return InitialMaxHealth; }
 
-	/****************************************/
-	/* Current MaxHealth Charge  of the map */
-	/****************************************/
+	/***************************************/
+	/* Current MaxHealth Charge of the map */
+	/***************************************/
 	private double InitialMaxHealthCharge = 0.0;
 	double VoidInitialMaxHealthCharge() { return InitialMaxHealthCharge; }
 
@@ -221,9 +214,15 @@ final class Diffy
 	private double InitialMaxArmorCharge = 0.0;
 	double VoidInitialMaxArmorCharge() { return InitialMaxArmorCharge; }
 
-	/************************************/
-	/* Current Speed of the monsters	*/
-	/************************************/
+	/*************************/
+	/* Last MaxArmor changed */
+	/*************************/
+	private double LastInitialMaxArmor = 0.0;
+	double VoidLastInitialMaxArmor() { return LastInitialMaxArmor; }
+
+	/*********************************/
+	/* Current Speed of the monsters */
+	/*********************************/
     private double InitialMonsterSpeed = 1.0f;
 	double VoidInitialMonsterSpeed() { return InitialMonsterSpeed; }
 
@@ -231,7 +230,7 @@ final class Diffy
 	/* Enable Diffy? */
 	/*****************/
     private bool DisableDiff = false;
-	bool VoidDisableDIff() { return DisableDiff; }
+	bool VoidDisableDiff() { return DisableDiff; }
 
 	/******************************************************/
 	/* Number of Players that are connected to the Server */
@@ -243,9 +242,9 @@ final class Diffy
 	/*******************************************************************/
     private int LastPlayerNum = 0;
 
-	/****************************/
-	/* Used to internal calcs	*/
-	/****************************/
+	/**************************/
+	/* Used to internal calcs */
+	/**************************/
     private double OldEngineTime = 0.0;
 
 	/****************/
@@ -257,40 +256,40 @@ final class Diffy
 	/* Difficulty per people array */
 	/*******************************/
 	private array<double> DiffPerPeople = 
-    {
-		50.00, //0
-		50.00, //1
-		50.00, //2
-		60.00, //3
-		60.00, //4
-		60.00, //5
-		60.00, //6
-		70.00, //7
-		70.00, //8
-		70.00, //9
-		70.00, //10
-		70.00, //11
-		70.00, //12
-		70.00, //13
-		70.00, //14
-		80.00, //15
-		80.00, //16
-		80.00, //17
-		80.00, //18
-		80.00, //19
-		80.00, //20
-		80.00, //21
-		80.00, //22
-		80.00, //23
-		80.00, //24
-		80.00, //25
-		90.00, //26
-		90.00, //27
-		100.00, //28
-		100.00, //29
-		100.00, //30
-		100.00, //31
-		100.00  //32
+	{
+		0.500, //0
+		0.500, //1
+		0.550, //2
+		0.600, //3
+		0.650, //4
+		0.700, //5
+		0.710, //6
+		0.720, //7
+		0.730, //8
+		0.740, //9
+		0.750, //10
+		0.760, //11
+		0.770, //12
+		0.780, //13
+		0.790, //14
+		0.800, //15
+		0.805, //16
+		0.810, //17
+		0.815, //18
+		0.820, //19
+		0.825, //20
+		0.830, //21
+		0.835, //22
+		0.840, //23
+		0.845, //24
+		0.850, //25
+		0.850, //26
+		0.850, //27
+		0.850, //28
+		0.850, //29
+		0.850, //30
+		0.850, //31
+		0.850  //32
 	};
     
 	/****************************/
@@ -361,30 +360,44 @@ final class Diffy
 		Think();
 	}
 
+	void PluginInit()
+	{
+		IgnoreDyff(); 
+		CheckEntitiesInThisMap();
+
+		MessageTime = 0.0;
+		LastPlayerNum = Math.clamp( 0, 32, PlayerNumNow );
+
+		SetNewDifficult(DiffPerPeople[LastPlayerNum]);
+		
+		CountPeople();
+	}
+
 	void MapActivate()
     {
 		IgnoreDyff(); 
 		CheckEntitiesInThisMap();
 
 		MessageTime = 0.0;
-		LastPlayerNum =  Math.clamp( 0, 32, PlayerNumNow);
+		LastPlayerNum = Math.clamp( 0, 32, PlayerNumNow );
 
-		double DifficulSelected;
+		double DifficulSelected = DifficulSelected = (DiffPerPeople[LastPlayerNum]);;
 
-		if( g_timer.OldMap != g_Engine.mapname )
+		// After changing the difficulty, it will remain until after you reset the map twice.(WIP)
+		/*if( g_timer.Fails % 2 == 1 )
 		{
-			DifficulSelected = (DiffPerPeople[LastPlayerNum]/100);
+			DifficulSelected = (DiffPerPeople[LastPlayerNum]);
 		}
 		else
 		{
 			DifficulSelected = LastDifficult;
-		}
+		}*/
 
 		SetNewDifficult(DifficulSelected);
 		
 		CountPeople();
 
-		if(Enable30SecScheduler !is null)
+		if( Enable30SecScheduler !is null )
 			g_Scheduler.RemoveTimer(Enable30SecScheduler);
 
 		@Enable30SecScheduler = g_Scheduler.SetTimeout( @this, "Message", 33.0f );
@@ -402,7 +415,10 @@ final class Diffy
 		if( DisableDiff ) 
 			return;
 
-        NewDiff = Math.clamp( DiffBorders[0], DiffBorders[DiffBorders.length()-1], NewDiff);
+		if( NewDiff < DiffBorders[0] ) NewDiff = DiffBorders[0];
+		if( NewDiff > DiffBorders[DiffBorders.length()-1] ) NewDiff = DiffBorders[DiffBorders.length()-1];
+		if( NewDiff < (DiffBorders[0]+0.001) && NewDiff > DiffBorders[0] ) NewDiff = (DiffBorders[0]+0.001);
+		if( NewDiff > (DiffBorders[DiffBorders.length()-1]-0.001) && NewDiff < DiffBorders[DiffBorders.length()-1] ) NewDiff = (DiffBorders[DiffBorders.length()-1]-0.001);
 
         NewDifficult = NewDiff;
 		LastDifficult = NewDifficult;
@@ -426,7 +442,7 @@ final class Diffy
 
 		PlayerNumNow = g_PlayerFuncs.GetNumPlayers();
 
-		if(PlayerNumNow == 0)
+		if( PlayerNumNow == 0 )
 		{
 			g_timer.Fails = 0;
 			g_timer.OldMap = "";
@@ -447,7 +463,7 @@ final class Diffy
         {
             pFile.ReadLine( line );
                 
-            if(line.Find("//") != String::INVALID_INDEX) 
+            if( line.Find("//") != String::INVALID_INDEX ) 
                 continue;
 
             array<string> SubLines = line.Split(",");
@@ -498,12 +514,9 @@ final class Diffy
 			{
 				CBaseEntity@ monsters = cast<CBaseEntity@>( EntitiesInThisMap[i].GetEntity() );
 
-				if( monsters !is null && !monsters.IsNetClient() && monsters.IsAlive() )
+				if( monsters !is null && !monsters.IsNetClient() && monsters.IsAlive() && monsters.pev.classname != "monster_barnacle" )
 				{
-					if( monsters.pev.classname != "monster_barnacle" )
-					{
-						monsters.pev.framerate = InitialMonsterSpeed;
-					}
+					monsters.pev.framerate = InitialMonsterSpeed;
 				}
 			}
 		}
@@ -625,29 +638,18 @@ final class Diffy
 		
 			if( pPlayer is null || !pPlayer.IsConnected() )
 				continue;
-			
-			double h = pPlayer.pev.health;
-			double a = pPlayer.pev.armorvalue;
-			double h2 = pPlayer.pev.max_health;
-			double a2 = pPlayer.pev.armortype;
-			
-			if(h2 < 1.0) h2 = 1.0;
-			if(a2 < 1.0) a2 = 1.0;
-			
-			if(pPlayer.pev.health > 0.0)
-				pPlayer.pev.health *= InitialMaxHealth/h2 + 1.0;
-			
-			if(pPlayer.pev.armorvalue > 0.0)
-				pPlayer.pev.armorvalue *= InitialMaxArmor/a2 + 1.0;
-			
+
+			if( pPlayer.pev.max_health < 1.0 ) pPlayer.pev.max_health = 1.0;
+			if( pPlayer.pev.armortype < 1.0 ) pPlayer.pev.armortype = 1.0;	
+
 			pPlayer.pev.max_health = InitialMaxHealth;
 			pPlayer.pev.armortype = InitialMaxArmor;
-			
-			if(pPlayer.pev.health > pPlayer.pev.max_health)
+
+			if( pPlayer.pev.health > pPlayer.pev.max_health )
 				pPlayer.pev.health = pPlayer.pev.max_health;
 			
-			if(pPlayer.pev.armorvalue > pPlayer.pev.armortype)
-				pPlayer.pev.armorvalue = pPlayer.pev.armortype;	
+			if( pPlayer.pev.armorvalue > pPlayer.pev.armortype )
+				pPlayer.pev.armorvalue = pPlayer.pev.armortype;
 		}
 	}
 
@@ -674,22 +676,25 @@ final class Diffy
 				
 					if( pPlayer is null || !pPlayer.IsConnected() )
 						continue;
-				
-					if(pPlayer.IsAlive())
+			
+					if( pPlayer.IsAlive() )
 					{
-						if(pPlayer.pev.health > 0.0)
+						if( pPlayer.pev.health > 0.0 )
 						{
 							pPlayer.pev.max_health = InitialMaxHealth;
 							pPlayer.pev.armortype = InitialMaxArmor;
 
-							pPlayer.pev.health += InitialMaxHealthCharge * BetweenTime;
-              				pPlayer.pev.armorvalue += InitialMaxArmorCharge * BetweenTime;
+							if( InitialMaxHealthCharge > 0.0  )
+								pPlayer.pev.health += InitialMaxHealthCharge * BetweenTime;
+							
+							if( InitialMaxArmorCharge > 0.0 )
+              					pPlayer.pev.armorvalue += InitialMaxArmorCharge * BetweenTime;
 						}
-						
-						if(pPlayer.pev.health > pPlayer.pev.max_health)
+
+						if( pPlayer.pev.health > pPlayer.pev.max_health )
 							pPlayer.pev.health = pPlayer.pev.max_health;
 						
-						if(pPlayer.pev.armorvalue > pPlayer.pev.armortype)
+						if( pPlayer.pev.armorvalue > pPlayer.pev.armortype )
 							pPlayer.pev.armorvalue = pPlayer.pev.armortype;
 					}
 				}
@@ -735,12 +740,12 @@ final class Diffy
         {
 			pFile.ReadLine( ReadMapName );
 
-			if(ReadMapName.Length() < 1) 
+			if( ReadMapName.Length() < 1 ) 
 				continue;
 
 			ReadMapName.ToLowercase();
 
-			if(MapName == ReadMapName)
+			if( MapName == ReadMapName )
 			{
 				DisableDiff = true;
 				return;
@@ -754,35 +759,30 @@ final class Diffy
 
 	string GetMessage()
     {
-		int ChooseDiffInt = int(NewDifficult*1000.0+0.5);
+		int ChooseDiffInt = int(NewDifficult*1000.0);
 		string aStr = "[SERVER] Difficulty: "+(ChooseDiffInt/10)+"."+(ChooseDiffInt%10)+"%%";
 
 		string bStr = " ";
+		string cStr = "";
 
-		/*if(NewDifficult<0.0005)
-			bStr = "(Lowest Difficulty)";
-		else if(NewDifficult<0.1)
-			bStr = "(Beginners)";
-		else if(NewDifficult<0.2)
-			bStr = "(Very Easy)";
-		else if(NewDifficult<0.4)
-			bStr = "(Easy)";
-		else if(NewDifficult<0.6)
-			bStr = "(Medium)";
-		else if(NewDifficult<0.75)
-			bStr = "(Hard)";
-		else if(NewDifficult<0.85)
-			bStr = "(Very Hard!)";
-		else if(NewDifficult<0.9)
-			bStr = "(Extreme!)";
-		else if(NewDifficult<0.95)
-			bStr = "(Near Impossible!)";
-		else if(NewDifficult<0.9995)
-			bStr = "(Impossible!)";
+		/*if( NewDifficult < 0.0005 ) bStr = " (Lowest Difficulty) ";
+		else if( NewDifficult < 0.1 ) bStr = " (Beginners) ";
+		else if( NewDifficult < 0.2 ) bStr = " (Very Easy) ";
+		else if( NewDifficult < 0.4 ) bStr = " (Easy) ";
+		else if( NewDifficult < 0.6 ) bStr = " (Medium) ";
+		else if( NewDifficult < 0.75 ) bStr = " (Hard) ";
+		else if( NewDifficult < 0.85 ) bStr = " (Very Hard!) ";
+		else if( NewDifficult < 0.9 ) bStr = " (Extreme!) ";
+		else if( NewDifficult < 0.95 ) bStr = " (Near Impossible!) ";
+		else if( NewDifficult < 0.9995 ) bStr = " (Impossible!) ";
+		else bStr = "(MAXIMUM DIFFICULTY!)";*/
+			 
+		if( LastPlayerNum == 0 )
+			cStr = "(Nobody was connected during Starting point)";
+		else if( LastPlayerNum == 1 )
+			cStr = "(A person connected during Starting point)";
 		else
-			bStr = "(MAXIMUM DIFFICULTY!)";*/
-			
-		string cStr = "(Jugadores al iniciar la partida: "+LastPlayerNum+")";
+			cStr = "("+LastPlayerNum+" people were connected during Starting point)";
 
 		if( !DisableDiff )
 		{
@@ -790,25 +790,25 @@ final class Diffy
 		}
 		else
 		{
-			return "[SERVER] Difficulty: Dificultad desactivada en este mapa";
+			return "[SERVER] Difficulty: Disabled on this map";
 		}
 	}
 
 	double MaxArray( array<double> MaxCapacity )
 	{	
-		if(NewDifficult == 1.0)
+		if( NewDifficult == 1.0 )
 		{
 			return MaxCapacity[MaxCapacity.length()-1];
 		}
 		else
 		{
-			for(uint i = 0; i < DiffBorders.length();++i)
+			for( uint i = 0; i < DiffBorders.length();++i )
 			{
-				if(DiffBorders[i] == NewDifficult)
+				if( DiffBorders[i] == NewDifficult)
 				{
 					return MaxCapacity[i];
 				}
-				else if(DiffBorders.length() > i && DiffBorders[i+1] > NewDifficult)
+				else if( DiffBorders.length() > i && DiffBorders[i+1] > NewDifficult )
 				{
 					double mino = DiffBorders[i];
 					double maxo = DiffBorders[i+1];
@@ -823,24 +823,24 @@ final class Diffy
 
 	double SKValue(int indexo)
 	{
-		if(NewDifficult == 1.0)
+		if( NewDifficult == 1.0 )
 		{
 			return SkillsMatrix[indexo][7];
 		}
 		else
 		{		
-			for(uint i = 0; i < DiffBorders.length();++i)
+			for( uint i = 0; i < DiffBorders.length();++i )
 			{
-				if(DiffBorders[i] == NewDifficult)
+				if( DiffBorders[i] == NewDifficult)
 				{
 					return SkillsMatrix[indexo][i];
 				}
-				else if(DiffBorders.length() > i && DiffBorders[i+1] > NewDifficult)
+				else if( DiffBorders.length() > i && DiffBorders[i+1] > NewDifficult )
 				{
 					double mino = DiffBorders[i];
 					double maxo = DiffBorders[i+1];
 					double difference = (NewDifficult-mino)/(maxo-mino);
-					
+										
 					return SkillsMatrix[indexo][i]*(1-difference) + SkillsMatrix[indexo][i+1]*difference;
 				}	
 			}	
@@ -869,9 +869,9 @@ final class Timer
 	private int TimerH = 0;
 	private int TimerD = 0;
 
-	/*******************************/
-	/* CubePavo, idk what you wait */
-	/*******************************/
+	/**************************************/
+	/* CubePavo, idk what are you waiting */
+	/**************************************/
 	private bool CubePavo = false;
 
 	Timer()
@@ -888,26 +888,43 @@ final class Timer
 		Think();
 	}
 
-	void MapActivate()
+	void PluginInit()
 	{
-		if(OldMap != g_Engine.mapname)
+		if( OldMap != g_Engine.mapname )
 		{
-			Fails = 0;
-			TimerS = 0;
-			TimerM = 0;
-			TimerH = 0;
-			TimerD = 0;
-
 			OldMap = g_Engine.mapname;
 		}
-		else
-		{
-			if(CubePavo) 
-				++Fails;
+
+		if( g_Engine.time < 0.2f )
+        {
+			g_Scheduler.SetTimeout( @this, "PluginInit", 0.2f-g_Engine.time);
+			return;
 		}
 
-		CubePavo = !CubePavo;
+		CubePavo = true;
 	}
+
+	void MapActivate()
+	{
+		if( CubePavo )
+		{
+			if( OldMap != g_Engine.mapname )
+			{
+				Fails = 0;
+				TimerS = 0;
+				TimerM = 0;
+				TimerH = 0;
+				TimerD = 0;
+
+				OldMap = g_Engine.mapname;
+			}
+			else
+			{
+				++Fails;
+			}
+		}
+	}
+	
 	void Think()
     {   	
 		if( TimerS == 60 )
@@ -924,7 +941,7 @@ final class Timer
 		g_Scheduler.SetTimeout( @this, "Think", 1.0);
 	}
 
-	string GetMessage( int modes )
+	string GetMessage( int mode )
 	{
 		string S, M, H, D, Time;
 
@@ -940,24 +957,24 @@ final class Timer
 		if( TimerD < 10 ) D = "0" + TimerD;
 		else D = TimerD;
 
-		switch( modes )
+		switch( mode )
 		{
 			case 0:	
 			{
-				Time = " (Tiempo: " +H+ ":" +M+ ":" +S+ ")"; break;
+				Time = " (Timer: " +H+ ":" +M+ ":" +S+ ")"; break;
 			}
 			case 1: 
 			{
-				if( S != "00" ) Time = " (Tiempo: "+S+ "s)";
-				if( M != "00" ) Time = " (Tiempo: "+M+"m"+S+"s)";
-				if( H != "00" ) Time = " (Tiempo: "+H+"h"+M+"m"+S+"s)";
-				if( D != "00" ) Time = " (Tiempo: "+H+"d"+H+"h"+M+"m"+S+"s)";
+				if( S != "00" ) Time = " (Timer: "+S+ "s)";
+				if( M != "00" ) Time = " (Timer: "+M+"m"+S+"s)";
+				if( H != "00" ) Time = " (Timer: "+H+"h"+M+"m"+S+"s)";
+				if( D != "00" ) Time = " (Timer: "+H+"d"+H+"h"+M+"m"+S+"s)";
 
 				break;
 			}
 		}
 
-		return Time + " (Intentos: " +Fails+ ")";
+		return Time + " (Map restarted: " +Fails+ " times)";
 	}
 }
 
@@ -1001,7 +1018,7 @@ final class VoteAlt
 
 	VoteAlt()
 	{
-		DelayTimer = 30;
+		DelayTimer = 3;
 		DiffSelected = 0;
 
 		Think();
@@ -1035,10 +1052,16 @@ final class VoteAlt
 
 	void Vote( CBasePlayer@ pPlayer, string message ) 
 	{
-		DiffSelected = Math.clamp( g_diffy.DiffBorders[0], g_diffy.DiffBorders[g_diffy.DiffBorders.length()-1], (atod(message)/100));
+		DiffSelected = (atof(message)/100);
+		g_Game.AlertMessage( at_console, string(DiffSelected)+'\n');
 
-		int ChooseDiffInt = int(DiffSelected*1000.0+0.5);
-		string FixMyAss = string(ChooseDiffInt/10)+"."+string(ChooseDiffInt%10)+"%%";
+		if( DiffSelected < g_diffy.DiffBorders[0] ) DiffSelected = g_diffy.DiffBorders[0];
+		if( DiffSelected > g_diffy.DiffBorders[g_diffy.DiffBorders.length()-1] ) DiffSelected = g_diffy.DiffBorders[g_diffy.DiffBorders.length()-1];
+		if( DiffSelected < (g_diffy.DiffBorders[0]+0.001) && DiffSelected > g_diffy.DiffBorders[0] ) DiffSelected = (g_diffy.DiffBorders[0]+0.001);
+		if( DiffSelected > (g_diffy.DiffBorders[g_diffy.DiffBorders.length()-1]-0.001) && DiffSelected < g_diffy.DiffBorders[g_diffy.DiffBorders.length()-1] ) DiffSelected = (g_diffy.DiffBorders[g_diffy.DiffBorders.length()-1]-0.001);
+
+		int ChooseDiffInt = int(DiffSelected*1000.0);
+		string Message = string(ChooseDiffInt/10)+"."+string(ChooseDiffInt%10)+"%%";
 
 		const Cvar@ g_pCvarVoteAllow = g_EngineFuncs.CVarGetPointer( "mp_voteallow" );
 		const Cvar@ g_pCvarVoteTimeCheck = g_EngineFuncs.CVarGetPointer( "mp_votetimecheck" );
@@ -1047,37 +1070,37 @@ final class VoteAlt
 
 		if( g_pCvarVoteAllow !is null && g_pCvarVoteAllow.value < 1 )
 		{
-			g_PlayerFuncs.SayText( pPlayer, "Los votos estan desactivados en el servidor.\n" );
+			g_PlayerFuncs.SayText( pPlayer, "Voting is disabled on this server.\n" );
 			return;
 		}
 
 		if( g_pCvarVoteMapRequired.value < 0 )
 		{
-			g_PlayerFuncs.SayText( pPlayer, "Este tipo de voto esta desactivado.\n" );
+			g_PlayerFuncs.SayText( pPlayer, "This type of vote is disabled.\n" );
 			return;
 		}
 
 		if( VoteState.ivote >= 4 )
 		{
-			g_PlayerFuncs.SayText( pPlayer, "Los votos para usted han sido desactivados. Espera "+VoteState.ivotedelay+" segundos\n" );
+			g_PlayerFuncs.SayText( pPlayer, "Votes for you have been disabled. Wait "+VoteState.ivotedelay+" seconds.\n" );
 			return;			
 		}
 
 		if( FindSteamID( pPlayer ) >= 0 )
 		{
-			g_PlayerFuncs.SayText( pPlayer, "Los votos para usted han sido desactivados. (PERMANENTEMENTE)\n" );
+			g_PlayerFuncs.SayText( pPlayer, "Votes for you have been disabled. (PERMANENT)\n" );
 			return;
 		}
 
 		if( DelayTimer > 0 )
 		{
-			g_PlayerFuncs.SayText( pPlayer, "Espera "+DelayTimer+" segundos para iniciar el vote.\n" );
+			g_PlayerFuncs.SayText( pPlayer, "Wait "+DelayTimer+" seconds to start another vote.\n" );
 			return;
 		}
 
 		if( g_Utility.VoteActive() )
 		{
-			g_PlayerFuncs.SayText( pPlayer, "No se puede iniciar este voto, otro voto en progreso.\n" );
+			g_PlayerFuncs.SayText( pPlayer, "Cannot start this vote, another vote is in progress.\n" );
 			return;
 		}
 		
@@ -1087,8 +1110,8 @@ final class VoteAlt
 
 			g_diffy.SetNewDifficult(DiffSelected);
 
-			g_PlayerFuncs.ClientPrintAll( HUD_PRINTTALK, "Dificultad cambiada a "+FixMyAss+" por el jugador: "+pPlayer.pev.netname+"\n" );
-			g_Game.AlertMessage( at_logged, "Dificultad cambiada a "+FixMyAss+" por el jugador: "+pPlayer.pev.netname+"\n" );
+			g_PlayerFuncs.ClientPrintAll( HUD_PRINTTALK, "[SERVER] Difficulty changed to "+Message+" by: "+pPlayer.pev.netname+"\n" );
+			g_Game.AlertMessage( at_logged, "[SERVER] Difficulty changed to "+Message+" by: "+pPlayer.pev.netname+"\n" );
 		}
 		else
 		{
@@ -1101,15 +1124,15 @@ final class VoteAlt
 			if( flPercentage <= 0 )
 				flPercentage = 66;
 
-			Vote customvote( "Difficulty Vote", "Cambiar dificultad a " +FixMyAss+ "?", flVoteTime, flPercentage );
+			Vote customvote( "Difficulty Vote", "Change difficulty to " +Message+ "?", flVoteTime, flPercentage );
 			customvote.SetYesText( "Yes");
 			customvote.SetNoText( "No" );
 			customvote.SetVoteBlockedCallback( FuncVoteBlocked(this.VoteBlocked) );
 			customvote.SetVoteEndCallback( FuncVoteEnd(this.VoteEnd) );
 			customvote.Start();
 			
-			g_PlayerFuncs.ClientPrintAll( HUD_PRINTTALK, customvote.GetName() + ": Iniciado por el jugador " + pPlayer.pev.netname + "\n" );
-			g_Game.AlertMessage( at_logged, customvote.GetName() + ": Iniciado por el jugador " + pPlayer.pev.netname + "\n" );
+			g_PlayerFuncs.ClientPrintAll( HUD_PRINTTALK, customvote.GetName() + ": Started by " + pPlayer.pev.netname + "\n" );
+			g_Game.AlertMessage( at_logged, customvote.GetName() + ": Started by " + pPlayer.pev.netname + "\n" );
 		}
 
 		++VoteState.ivote;
@@ -1127,13 +1150,13 @@ final class VoteAlt
 			message.WriteString( "spk buttons/bell1" );
 			message.End();
 
-			g_PlayerFuncs.ClientPrintAll( HUD_PRINTNOTIFY, "¡Voto para cambiar la dificultad fue exitoso!\n" );
-			g_Game.AlertMessage( at_logged, "¡Voto para cambiar la dificultad fue exitoso!\n" );
+			g_PlayerFuncs.ClientPrintAll( HUD_PRINTNOTIFY, "[SERVER] Difficulty: Vote to change the difficulty was successful!\n" );
+			g_Game.AlertMessage( at_logged, "[SERVER] Difficulty: Vote to change the difficulty was successful!\n" );
 		}
 		else
 		{
-			g_PlayerFuncs.ClientPrintAll( HUD_PRINTNOTIFY, "Voto para cambiar la dificultad fue un fracaso.\n" );
-			g_Game.AlertMessage( at_logged, "Voto para cambiar la dificultad fue un fracaso.\n" );
+			g_PlayerFuncs.ClientPrintAll( HUD_PRINTNOTIFY, "[SERVER] Difficulty: Vote to change the difficulty was a failure :C\n" );
+			g_Game.AlertMessage( at_logged, "[SERVER] Difficulty: Vote to change the difficulty was a failure :C\n" );
 		}
 	}
 
