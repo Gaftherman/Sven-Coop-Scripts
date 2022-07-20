@@ -26,10 +26,8 @@ void DiffAdmin(const CCommand@ pArguments)
 
     if( pArguments.ArgC() < 1 && aStr == "" && !g_diffy.VoidDisableDiff() ) 
         return;
-
-    double NewDiff = atod(aStr);
     
-    g_diffy.SetNewDifficult(NewDiff/100.0);
+    g_diffy.SetNewDifficult(atod(aStr)/100.0);
 
     g_PlayerFuncs.ClientPrintAll( HUD_PRINTNOTIFY, "[SERVER] Difficulty changed by an admin\n" );
     g_Game.AlertMessage( at_logged, "[SERVER] Difficulty changed by an admin: "+pPlayer.pev.netname+"\n" );
@@ -297,7 +295,7 @@ final class Diffy
     /****************************/
     array<double> DiffBorders = 
     {
-        0.00, 0.10, 0.30, 0.50, 0.70, 0.90, 1.00
+        0.00, 0.10, 0.30, 0.50, 0.70, 0.90, 2.00
     };
 
     /***************************/
@@ -899,9 +897,9 @@ final class Timer
             OldMap = g_Engine.mapname;
         }
 
-        if( g_Engine.time < 0.2f )
+        if( g_Engine.time < 5.5f )
         {
-            g_Scheduler.SetTimeout( @this, "PluginInit", 0.2f-g_Engine.time);
+            g_Scheduler.SetTimeout( @this, "PluginInit", 5.5f-g_Engine.time);
             return;
         }
 
