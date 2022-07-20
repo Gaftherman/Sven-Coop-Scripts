@@ -158,7 +158,7 @@ HookReturnCode ClientSay( SayParameters@ pParams )
 final class Diffy
 {
     /************************************/
-    /* 			  Scheduler	    		*/
+    /*            Scheduler             */
     /************************************/
     CScheduledFunction@ CountPeopleScheduler;
     CScheduledFunction@ Enable30SecScheduler;
