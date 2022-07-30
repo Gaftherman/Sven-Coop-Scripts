@@ -1,5 +1,5 @@
 # Sven-Coop-Scripts
-What is this? This repository will contain scripts for public use
+This repository contain scripts created/ported by my to test my abilities
 
 **click on the preview images to open a showcase video**
 
