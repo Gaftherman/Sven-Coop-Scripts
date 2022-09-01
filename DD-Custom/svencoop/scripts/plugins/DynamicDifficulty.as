@@ -1,4 +1,4 @@
-//To permanently block the use of vote of a specific player, put their SteamID here SteamID
+//To permanently block the use of vote of a specific player, put their SteamID here.
 array<string> SteamIDArray = 
 {
     "STEAM_0:0:000000000",
